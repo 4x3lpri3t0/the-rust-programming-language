@@ -5,55 +5,10 @@
     "version": "0.2.0",
     "configurations": [
         {
-            "type": "lldb-mi",
-            "request": "launch",
-            "name": "Launch Program",
-            "target": "./target/debug/the-rust-programming-language.exe",
-            "cwd": "${workspaceRoot}",
-            "valuesFormatting": "parseText"
-        },
-        {
-            "type": "gdb",
-            "request": "attach",
-            "name": "Attach to PID",
-            "target": "[PID]",
-            "cwd": "${workspaceRoot}",
-            "valuesFormatting": "parseText"
-        },
-        {
             "type": "lldb",
             "request": "launch",
-            "name": "Debug executable 'the-rust-programming-language'",
-            "cargo": {
-                "args": [
-                    "build",
-                    "--bin=the-rust-programming-language",
-                    "--package=the-rust-programming-language"
-                ],
-                "filter": {
-                    "name": "the-rust-programming-language",
-                    "kind": "bin"
-                }
-            },
-            "args": [],
-            "cwd": "${workspaceFolder}"
-        },
-        {
-            "type": "lldb",
-            "request": "launch",
-            "name": "Debug unit tests in executable 'the-rust-programming-language'",
-            "cargo": {
-                "args": [
-                    "test",
-                    "--no-run",
-                    "--bin=the-rust-programming-language",
-                    "--package=the-rust-programming-language"
-                ],
-                "filter": {
-                    "name": "the-rust-programming-language",
-                    "kind": "bin"
-                }
-            },
+            "name": "Debug",
+            "program": "${workspaceFolder}/02-guessing-game/target/debug/the-rust-programming-language.exe",
             "args": [],
             "cwd": "${workspaceFolder}"
         }

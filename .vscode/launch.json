@@ -8,7 +8,8 @@
             "type": "lldb",
             "request": "launch",
             "name": "Debug",
-            "program": "${workspaceFolder}/02-guessing-game/target/debug/the-rust-programming-language.exe",
+            // To create new projects and debug from current main.rs directly
+            "program": "${file}/../../target/debug/the-rust-programming-language",
             "args": [],
             "cwd": "${workspaceFolder}"
         }

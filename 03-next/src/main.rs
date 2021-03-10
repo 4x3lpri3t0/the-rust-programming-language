@@ -1,22 +1,66 @@
-fn main_1() {
-    let mut guess = String::new();
-    println!("Hellrustup default stable o world!");
+fn print_type_of<T>(_: &T) {
+    println!("{}", std::any::type_name::<T>())
 }
 
-// Using a ! means that you’re calling a macro instead of a normal function.
-// Compile: rustc main.rs
-
-use std::io;
-
 fn main() {
-    println!("Guess the number!");
-    println!("Please input your guess.");
+    // ###############
+    // ## SHADOWING ##
+    // ###############
 
-    // In Rust, variables are immutable by default
-    let mut guess = String::new(); // String is UTF-8 encoded
+    // We can _shadow_ a variable by using the same variable’s name
+    // and repeating the use of the let keyword as follows:
+    let x = 5;
+    let x = x + 1;
+    let x = x * 2;
+    println!("The value of x is {}", x);
 
-    io::stdin().read_line(&mut guess)
-        .expect("Failed to read");
-    
-    println!("You guessed: {}", guess);
+    // Shadowing spares us from having to come up with different names,
+    // such as spaces_str and spaces_num; instead, we can reuse the same name:
+    let spaces = "    "; // str
+    let spaces = spaces.len(); // usize
+    println!("There are {} spaces in there", spaces);
+
+    // However, if we try to use mut for this, as shown here, we’ll get a compile-time error:
+    // let mut spaces = "   ";
+    // spaces = spaces.len();
+
+    // ################
+    // ## DATA TYPES ##
+    // ################
+
+    // Rust -> Statically typed (must know types of all variables at compile time)
+
+    // Scalar Types -> Single value (int, float, bool, char)
+    // isize and usize types depend on the arch of the computer your program is running on:
+    // 64 bits if you’re on a 64-bit architecture and 32 bits if you’re on a 32-bit architecture.
+
+    // Other int representations (Literals):
+
+    // Decimal	98_222
+    // Hex	0xff
+    // Octal	0o77
+    // Binary	0b1111_0000
+    // Byte (u8 only)	b'A'
+
+    // integer types default to i32: this type is generally the fastest, even on 64-bit systems
+
+    // Floating-Point types:
+
+    let f1 = 2.0; // f64 (default)
+                  // let f2: f32 = 3.0; // f32
+
+    println!("f1 type:");
+    print_type_of(&f1); // f64 (default)
+
+    // Char:
+
+    // let heart_eyed_cat = '😻';
+    // Rust’s char type is four bytes in size and represents a Unicode Scalar Value, which means
+    // it can represent a lot more than just ASCII. Accented letters; Chinese, Japanese, and Korean characters
+
+    // Compound Types -> Can group multiple values into one type (tuples, arrays)
+
+    // Tuple:
+
+    // TODO ...
 }

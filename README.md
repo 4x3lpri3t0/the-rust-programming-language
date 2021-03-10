@@ -1,4 +1,3 @@
-# TEST
 # The Rust Programming Language
 Code produced while following "The Rust Programming Language" book by Steve Klabnik.
 

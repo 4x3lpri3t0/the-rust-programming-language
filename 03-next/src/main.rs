@@ -62,5 +62,17 @@ fn main() {
 
     // Tuple:
 
+    // Tuples have a fixed length: once declared, they cannot grow or shrink in size.
+
+    let tup: (i32, f64, u8) = (500, 6.4, 1); // Each position in the tuple has a type
+    println!("tup.0 type:");
+    print_type_of(&tup.0);
+    // The variable tup binds to the entire tuple, because a tuple is considered a single compound element.
+    // We can use pattern matching to destructure a tuple value:
+    let (_, y, _) = tup; // _destructuring_
+    println!("The value of y is: {}", y);
+
+    // Array:
+
     // TODO ...
 }

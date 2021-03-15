@@ -74,5 +74,84 @@ fn main() {
 
     // Array:
 
-    // TODO ...
+    let a = [1, 2, 3, 4, 5]; // Allocated in stack (not heap)
+    let a: [i32; 5] = [1, 2, 3, 4, 5];
+    let a = [3; 5]; // [3, 3, 3, 3, 3]
+    println!("Value of first element in `a`: {}", a[0]);
+
+    another_function();
+    expression();
+
+    control_flow();
+
+    // While:
+
+    // while index < 5 { ... }
+
+    // For:
+
+    // for element in a.iter() { ... }
+
+    // Range:
+
+    for number in (1..4).rev() {
+        println!("{}!", number);
+    }
+    println!("LIFTOFF!!!");
+}
+
+fn another_function() {
+    println!("Another function.");
+    another_function_with_params(42);
+}
+
+fn another_function_with_params(x: i32) {
+    println!("The answer to life the universe and everything is {}", x);
+}
+
+fn expression() {
+    let x = 5;
+
+    let y = {
+        let x = 3;
+        x + 1 // returns 4
+              // !!! EXPRESSIONS DO NOT INCLUDE SEMICOLONS !!!
+    };
+
+    println!("The value of y is {}", y);
+    println!("The value of x is still {}", x);
+
+    // You can return early from a function by using the return keyword and specifying a value,
+    // but most functions return the last expression implicitly:
+    let five = five();
+    println!("The value of five is {}", five);
+}
+
+fn five() -> i32 {
+    5
+}
+
+fn control_flow() {
+    let number = 3;
+
+    if number != 0 {
+        println!("Not zero");
+    } else if number % 2 == 0 {
+        println!("Even!");
+    } else {
+        println!("Odd!");
+    }
+
+    if_in_let_statement();
+}
+
+fn if_in_let_statement() {
+    let condition = true;
+    let number = if condition { 5 } else { 6 };
+
+    println!("The value is {}", number);
+
+    // let number = if condition { 5 } else { "six" };
+    // Wouldn't compile.
+    // Rust needs to know at compile time what type the number variable is.
 }

@@ -26,5 +26,11 @@ fn main() {
 
     // Memory and Allocation:
 
+    let s = String::from("hello"); // Actual String, not literal
+                                   // When a variable goes out of scope, Rust calls the 'drop' function for us.
+                                   // (e.g.: Rust calls drop automatically at the closing curly bracket)
+
+    // Ways Variables and Data Interact: Move
+
     // TODO ...
 }

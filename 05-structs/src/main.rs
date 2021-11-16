@@ -176,5 +176,184 @@ fn main() {
 
     // In addition to the Debug trait, Rust has provided a number of traits for us to use with the `derive` attribute that can add useful behavior to our custom types. We'll cover how to implement these traits with custom behavior as well as how to create your own traits in Chapter 10.
 
-    // TODO: Method Syntax (To be continued...)
+    main_2();
 }
+
+fn main_2() {
+    // Method Syntax
+
+    // The syntax for methods is the same as for functions. However, methods are different from functions in that they're defined within the context of a struct, and their first parameter is always `self`, which is a reference to the struct that the method is defined on.
+
+    // Area method defined on the Rectangle struct:
+
+    #[derive(Debug)]
+    struct Rectangle {
+        width: u32,
+        height: u32,
+    }
+
+    impl Rectangle {
+        fn area(&self) -> u32 {
+            self.width * self.height
+        }
+    }
+
+    // ^ The &self is actually short for self: &Self
+    // self is an alias for the _type_ that the impl block is for.
+
+    let rect = Rectangle {
+        width: 31,
+        height: 51,
+    };
+
+    println!(
+        "The area of the rectangle is {} square pixels.",
+        rect.area()
+    );
+
+    // Methods can take ownership of `self`, borrow `self` immutably as done here, or borrow `self` mutably, just as they can any other paramater.
+
+    // ^ We didn't want to take ownership, since we just wanted to read the data in the struct, so we used &self.
+
+    main_3();
+}
+
+fn main_3() {
+    // We can choose to give a method the same name as one of the struct's fields:
+
+    #[derive(Debug)]
+    struct Rectangle {
+        width: u32,
+        height: u32,
+    }
+
+    impl Rectangle {
+        fn width(&self) -> bool {
+            self.width > 0
+        }
+    }
+
+    let rect1 = Rectangle {
+        width: 30,
+        height: 50,
+    };
+
+    if rect1.width() {
+        println!("The rectangle has a nonzero width; it is {}", rect1.width);
+    }
+
+    // --------------------------------------------------------------------------------------------
+
+    // Automatic Referencing and Dereferencing
+
+    // When you call a method with object.something(), Rust automatically adds in &, &mut, or * so `object` matches the signature of the method. In other words, the following are the same:
+
+    // p1.distance(&p2);
+    // (&p1).distance(&p2);
+
+    // The first one looks much cleaner. This automatic referencing behavior works because methods have a clear receiver—the type of self. Given the receiver and name of a method, Rust can figure out definitively whether the method is reading (&self), mutating (&mut self), or consuming (self). The fact that Rust makes borrowing implicit for method receivers is a big part of making ownership ergonomic in practice.
+    main_4();
+}
+
+fn main_4() {
+    // --------------------------------------------------------------------------------------------
+
+    // Methods with More Parameters
+
+    // We want an isntance of Rectangle to take another instance of Rectangle and return true if the second Rectangle can fit completely within self.
+
+    #[derive(Debug)]
+    struct Rectangle {
+        width: u32,
+        height: u32,
+    }
+
+    let rect1 = Rectangle {
+        width: 30,
+        height: 50,
+    };
+
+    let rect2 = Rectangle {
+        width: 10,
+        height: 40,
+    };
+
+    let rect3 = Rectangle {
+        width: 60,
+        height: 45,
+    };
+
+    println!("Can rect1 hold rect2? {}", rect1.can_hold(&rect2)); // true
+    println!("Can rect1 hold rect3? {}", rect1.can_hold(&rect3)); // false
+
+    // We can tell what the type of the parameter will be by looking at the code that calls the method: rect1.can_hold(&rect2) passes in &rect2, which is an immutable borrow to rect2, an instance of Rectangle. This makes sense because we only need to _read_ rect2.
+
+    impl Rectangle {
+        fn area(&self) -> u32 {
+            self.width * self.height
+        }
+        fn can_hold(&self, other: &Rectangle) -> bool {
+            self.width > other.width && self.height > other.height
+        }
+    }
+    main_5();
+}
+
+fn main_5() {
+    // Associated Functions
+
+    // All functions defined within an impl block are called associated functions because they’re associated with the type named after the impl. We can define associated functions that don’t have self as their first parameter (and thus are not methods) because they don’t need an instance of the type to work with. We’ve already used one function like this, the String::from function, that’s defined on the String type.
+
+    // Associated functions that aren’t methods are often used for constructors that will return a new instance of the struct. For example, we could provide an associated function that would have one dimension parameter and use that as both width and height, thus making it easier to create a square Rectangle rather than having to specify the same value twice:
+
+    #[derive(Debug)]
+    struct Rectangle {
+        width: u32,
+        height: u32,
+    }
+
+    impl Rectangle {
+        fn square(size: u32) -> Rectangle {
+            Rectangle {
+                width: size,
+                height: size,
+            }
+        }
+    }
+
+    // To call this associated function, we use the :: syntax with the struct name:main_4()
+    // let sq = Rectangle::square(3);
+    // This function is namespaced by the struct: the :: syntax is used for both associated functions and namespaces created by modules.
+
+    main_6();
+}
+
+fn main_6() {
+    // Multiple impl Blocks
+
+    #[derive(Debug)]
+    struct Rectangle {
+        width: u32,
+        height: u32,
+    }
+
+    impl Rectangle {
+        fn area(&self) -> u32 {
+            self.width * self.height
+        }
+    }
+
+    impl Rectangle {
+        fn can_hold(&self, other: &Rectangle) -> bool {
+            self.width > other.width && self.height > other.height
+        }
+    }
+
+    // There’s no reason to separate these methods into multiple impl blocks here, but this is valid syntax. We’ll see a case in which multiple impl blocks are useful in Chapter 10, where we discuss generic types and traits.
+}
+
+// Summary
+
+// Methods are functions that are defined on a struct or enum. They’re defined with the impl keyword, and are defined within the context of the type they’re defined on.
+
+// Structs let you create custom types that are meaningful for your domain. By using structs, you can keep associated pieces of data connected to each other and name each piece to make your code clear. In impl blocks, you can define functions that are associated with your type, and methods are a kind of associated function that let you specify the behavior that instances of your structs have.

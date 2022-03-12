@@ -1,6 +1,6 @@
 fn main() {
     // let mut guess = String::new();
-    println!("*** OWNERSHIP ***");
+    println!("*** 4 - OWNERSHIP ***");
 
     // Ownership enables Rust to make memory safety guarantees without needing a garbage collector.
     // Memory is managed through a system of ownership with a set of rules that the compiler checks at compile time.

@@ -1,4 +1,5 @@
 fn main() {
+    println!("*** 5 - STRUCTS ***");
     // Defining and Instatiating Structs
 
     // Structs are more flexible than tuples: you don’t have to rely on the order of the data to specify or access the values of an instance.

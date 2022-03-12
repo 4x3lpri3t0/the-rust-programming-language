@@ -1,6 +1,7 @@
 // Enums and Pattern Matching
 
 fn main() {
+    println!("*** 6 - ENUMS ***");
     // Defining an Enum
 
     enum IpAddrKind {

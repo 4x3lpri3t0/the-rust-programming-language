@@ -80,5 +80,115 @@ fn main() {
 
     // OWNERSHIP and FUNCTIONS
 
-    // TODO ...
+    // When a variable that includes data on the heap goes out of scope,
+    // the value will be cleaned up by `drop` unless the data has been moved to be owned by another variable.
+
+    // Return multiple values using a tuple:
+    let (s2, len) = calculate_length(s1);
+
+    fn calculate_length(s: String) -> (String, usize) {
+        let length = s.len();
+
+        (s, length)
+    }
+
+    // REFERENCES and BORROWING
+
+    let s_ref = String::from("reference");
+    let len = calculate_length_with_reference(&s_ref);
+
+    fn calculate_length_with_reference(s: &String) -> usize {
+        s.len() // s <- s1 <- "reference"
+    }
+    // These ampersands (&) are refs: refer to some value without taking ownership of it.
+
+    // When functions have references as parameters instead of the actual values,
+    // we don’t need to return the values in order to give back ownership, because we never had ownership.
+    // BORROWING: Having references as function parameters.
+
+    // Borrowed vaues CANNOT be modified... "error[E0596]: cannot borrow immutable borrowed content `*some_string` as mutable"
+    // We are not allowed to modify something we have a reference to.
+
+    // MUTABLE REFERENCES
+
+    fn change(some_string: &mut String) {
+        some_string.push_str(", world")
+    }
+    let mut s = String::from("Hello");
+    change(&mut s);
+
+    // Mutable ref have a restriction: you can have only one mutable ref to a particular
+    // piece of data in a particular scope. Will fail:
+    // let r1 = &mut s;
+    // let r2 = &mut s;
+
+    // Most languages let you mutate whenever you'd like
+    // -> Rust can prevent data races at compile time
+
+    // Use curly braces to create new scope, allowing for multiple mut ref, just not _simultaneous_ ones:
+    {
+        let r1 = &mut s;
+    }
+    let r2 = &mut s;
+
+    // Also: Cannot hav a mut ref while we have a an immutable one.
+
+    // DANGLING REFERENCES
+
+    // let ref_to_nothing = dangle();
+    // fn dangle() -> &String {
+    //     let s = String::from("The compiler won't let me dangle");
+
+    //     &s
+    // } // Here s goes out of scope and is dropped. Its memory goes away. Danger!
+    // // That returning reference would be pointing to an invalid string.
+
+    // Instead, return the string directly:
+    fn no_dangle() -> String {
+        let s = String::from("Hello");
+
+        s
+    }
+
+    // RULES of REF:
+    // * Can have _either_ but not both of:
+    //      - 1 mut ref
+    //      (or)
+    //      - N immutable refs
+    // * Refs must always be valid
+
+    // Diff kind of refs: Slices...
+
+    // The SLICE type
+    // * Does not have ownership
+    // * Lets you ref a contiguous sequence of elements in a collection
+
+    // iter() : Returns each element in a collection.
+    // enumerate() : Wraps the result of `iter` and returns each element as part of a tuple instead (idx, &item).
+    //  -> We can use patterns to destructure that tuple (like anything else in Rust).
+
+    // STRING SLICES
+
+    // String slice: Ref to a PART of a String.
+    let s = String::from("hello world");
+    let hello = &s[..5];
+    let world = &s[6..];
+    // let slice_of_whole_str = &s[..]
+
+    // Function that returns the first word of a string:
+    fn first_word(s: &String) -> &str {
+        let bytes = s.as_bytes();
+
+        for (i, &item) in bytes.iter().enumerate() {
+            if item == b'' {
+                return &s[..i];
+            }
+        }
+
+        &s[..]
+    }
+
+    // STRING LITERALES are SLICES
+
+    // ... (TODO)
 }

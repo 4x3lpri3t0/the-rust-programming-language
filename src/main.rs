@@ -7,5 +7,5 @@ pub use crate::chapter06::c06;
 fn main() {
     c05::structs();
 
-    c06::enums();
+    // c06::enums();
 }

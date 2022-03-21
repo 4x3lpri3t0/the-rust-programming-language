@@ -5,7 +5,6 @@ pub mod c05 {
         // Defining and Instatiating Structs
 
         // Structs are more flexible than tuples: you don’t have to rely on the order of the data to specify or access the values of an instance.
-
         struct User {
             active: bool,
             username: String,
@@ -14,7 +13,6 @@ pub mod c05 {
         }
 
         // The struct definition is like a general blueprint for creating instances of the struct.
-
         let mut user1 = User {
             email: String::from("someone@example.com"),
             username: String::from("someusername123"),
@@ -23,11 +21,9 @@ pub mod c05 {
         };
 
         // If the instance is mutable, we can change a value by using the dot notation.
-
         user1.email = String::from("anotheremail@example.com");
 
         // The entire instance must be mutable; Rust doesn't allow us to mark only certain fields as mutable.
-
         fn build_user(email: String, username: String) -> User {
             User {
                 email: email,
@@ -40,7 +36,6 @@ pub mod c05 {
         // Using the Field Init Shorthand when Variables and Fields Have the Same Name
 
         // If the field name and variable name are the same, we can use the shorthand notation to initialize the field.
-
         fn build_user_2(email: String, username: String) -> User {
             User {
                 email,
@@ -75,7 +70,6 @@ pub mod c05 {
         // Tuple structs have the added meaning the struct name provides but don't have names associated with their fields; rather, they just have the types of the fields. They are useful when you want to give the whole tuple a name and make the tuple be a different type from other tuples, and naming each field as in a regular struct would be verbose or redundant.
 
         // To define a tuple struct, start with the `struct` keyword and the struct name followed by the types in the tuple:
-
         struct Color(i32, i32, i32);
         struct Point(i32, i32, i32);
 

@@ -27,10 +27,8 @@ Alternatively: `cargo b --manifest-path n-exercise/Cargo.toml`
 
 ## Exercises Workflow
 
-* Create new subproject for lesson unit
-* `cd [unit_name]`
-* CTRL + SHIFT + B
-* F5
+* Ctrl + Shift + B
+* F5 (runs existing build)
 
 ## TODO
 

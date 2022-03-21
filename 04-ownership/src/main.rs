@@ -189,6 +189,10 @@ fn main() {
     }
 
     // STRING LITERALES are SLICES
+    let s = "Hello, world!";
+    // The type of s here is &str: it’s a slice pointing to that specific point of the binary.
+    // String literals are immutable; &str is an immutable ref.
 
-    // ... (TODO)
+    // STRING SLICES as params
+    // &str allows us to use the fn for on both String and &str (slice) values.
 }

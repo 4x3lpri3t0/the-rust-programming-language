@@ -1,6 +1,6 @@
 pub mod c05 {
     pub fn structs() {
-        println!("*** 5 - Structs ***");
+        println!("*** Chapter 5 - Structs ***");
 
         // Defining and Instatiating Structs
 

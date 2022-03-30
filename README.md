@@ -22,9 +22,6 @@ To debug from current open main.rs file directly, use this `launch.json` snippet
 
 If breakpoints are not being attached, you are missing a `cargo b`.
 
-When creating a new subproject (e.g.: `n-exercise`), you still need to `cd n-exercise` and `cargo b` there before being able to debug this new `main.rs` file.
-Alternatively: `cargo b --manifest-path n-exercise/Cargo.toml`
-
 ## Exercises Workflow
 
 * Ctrl + Shift + B
@@ -32,11 +29,11 @@ Alternatively: `cargo b --manifest-path n-exercise/Cargo.toml`
 
 ## TODO
 
-* Finish the [book](https://doc.rust-lang.org/book/ch04-01-what-is-ownership.html):
+Finish the [book](https://doc.rust-lang.org/book/ch04-01-what-is-ownership.html):
 - [x] 4. Understanding Ownership
 - [x] 5. Using Structs to Structure Related Data
-- [ ] 6. Enums and Pattern Matching
-- [ ] 7. Managing Growing Projects with Packages, Crates, and Modules
+- [x] 6. Enums and Pattern Matching
+- [~] 7. Managing Growing Projects with Packages, Crates, and Modules
 - [ ] 8. Common Collections
 - [ ] 9. Error Handling
 - [ ] 10. Generic Types, Traits, and Lifetimes
@@ -50,5 +47,6 @@ Alternatively: `cargo b --manifest-path n-exercise/Cargo.toml`
 - [ ] 18. Patterns and Matching
 - [ ] 19. Advanced Features
 - [ ] 20. Final Project: Building a Multithreaded Web Server
-* Extra:
+
+Extra:
 - [ ] Change the approach to use libraries instead

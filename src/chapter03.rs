@@ -1,5 +1,7 @@
 pub mod c03 {
     pub fn common_concepts() {
+        println!("*** Chapter 3 - Common Concepts ***");
+
         // Shadowing
         shadowing();
 

@@ -33,7 +33,7 @@ Finish the [book](https://doc.rust-lang.org/book/ch04-01-what-is-ownership.html)
 - [x] 4. Understanding Ownership
 - [x] 5. Using Structs to Structure Related Data
 - [x] 6. Enums and Pattern Matching
-- [~] 7. Managing Growing Projects with Packages, Crates, and Modules
+- [X] 7. Managing Growing Projects with Packages, Crates, and Modules
 - [ ] 8. Common Collections
 - [ ] 9. Error Handling
 - [ ] 10. Generic Types, Traits, and Lifetimes
@@ -47,6 +47,3 @@ Finish the [book](https://doc.rust-lang.org/book/ch04-01-what-is-ownership.html)
 - [ ] 18. Patterns and Matching
 - [ ] 19. Advanced Features
 - [ ] 20. Final Project: Building a Multithreaded Web Server
-
-Extra:
-- [ ] Change the approach to use libraries instead

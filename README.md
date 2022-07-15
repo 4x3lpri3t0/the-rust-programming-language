@@ -29,13 +29,13 @@ If breakpoints are not being attached, you are missing a `cargo b`.
 
 ## TODO
 
-Finish the [book](https://doc.rust-lang.org/book/ch04-01-what-is-ownership.html):
+[Book](https://doc.rust-lang.org/book/ch04-01-what-is-ownership.html) chapters:
 - [x] 4. Understanding Ownership
 - [x] 5. Using Structs to Structure Related Data
 - [x] 6. Enums and Pattern Matching
 - [X] 7. Managing Growing Projects with Packages, Crates, and Modules
-- [ ] 8. Common Collections
-- [ ] 9. Error Handling
+- [X] 8. Common Collections
+- [X] 9. Error Handling
 - [ ] 10. Generic Types, Traits, and Lifetimes
 - [ ] 11. Writing Automated Tests
 - [ ] 12. An I/O Project: Building a Command Line Program

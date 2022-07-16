@@ -1,31 +1,31 @@
 # The Rust Programming Language
 Code produced while following "The Rust Programming Language" book by Steve Klabnik.
 
-To debug from current open main.rs file directly, use this `launch.json` snippet:
+The following `launch.json` snippet has been tweaked to make it possible to debug `main.rs` independently of where you are in the project. It `cargo build`s before launching the debugger.
 
 ```json
 {
-    "version": "0.2.0",
-    "configurations": [
-        {
-            "type": "lldb",
-            "request": "launch",
-            "name": "Debug",
-            
-            "program": "${file}/../../target/debug/the-rust-programming-language",
-            "args": [],
-            "cwd": "${workspaceFolder}"
-        }
-    ]
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "type": "lldb",
+      "request": "launch",
+      "name": "Debug",
+      "program": "${workspaceFolder}/target/debug/the-rust-programming-language",
+      "args": [],
+      "cwd": "${workspaceFolder}",
+      "preLaunchTask": "cargo build"
+    }
+  ]
 }
 ```
 
-If breakpoints are not being attached, you are missing a `cargo b`.
+## Run
 
-## Exercises Workflow
-
-* Ctrl + Shift + B
-* F5 (runs existing build)
+All these approaches should work similarly:
+* Ctrl + Shift + B (if using VSCode on Ubuntu or Windows)
+* F5
+* Running the commands `$ cargo build` and `$ cargo run`
 
 ## TODO
 

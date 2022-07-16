@@ -6,6 +6,8 @@ pub mod c09 {
     use std::io::Read;
 
     pub fn error_handling() {
+        println!("*** Chapter 9 - Error Handling ***");
+
         // Using panic! and backtrace
         panic();
 
@@ -23,6 +25,8 @@ pub mod c09 {
 
         // Using ? operator for propagating errors
         question_mark();
+
+        // TODO: Come back to this chapter later
     }
 
     fn panic() {

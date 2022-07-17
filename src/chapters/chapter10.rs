@@ -28,6 +28,7 @@ pub mod c10 {
 
         // Lifetimes: Validating references
         lifetimes_to_prevent_dangling_refs();
+        generic_lifetimes_in_functions();
     }
 
     fn find_largest() {
@@ -387,6 +388,29 @@ pub mod c10 {
     }
 
     fn lifetimes_to_prevent_dangling_refs() {
+        // The main aim of lifetimes is to prevent dangling references, which cause
+        // a program to reference data other than the data it's intended to reference.
+
+        // E.g. an attempt to use a ref whose value has gone out of scope:
+        // {
+        //     let r;
+        //     {
+        //         let x = 5;
+        //         r = &x; // [E0597] `x` does not live long enough.
+        //     } // <- `x` droppped there while still borrowed
+
+        //     println!("r: {}", r);
+        // }
+
+        // That code won't compile because the value `r` is referring to has gone out of scope before we try to use it.
+        // `r` lives longer than `x`
+        // Rust uses a "borrow checker" to determine that this code is invalid.
+
+        // Borrow checker: compares scopes to determine whether all borrows are valid.
+        // The data should have >= lifetime than the reference pointing to it.
+    }
+
+    fn generic_lifetimes_in_functions() {
         // TODO: DO!
     }
 }

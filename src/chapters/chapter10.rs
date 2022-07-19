@@ -29,6 +29,7 @@ pub mod c10 {
         // Lifetimes: Validating references
         lifetimes_to_prevent_dangling_refs();
         generic_lifetimes_in_functions();
+        lifetime_annotation_syntax();
     }
 
     fn find_largest() {
@@ -411,6 +412,38 @@ pub mod c10 {
     }
 
     fn generic_lifetimes_in_functions() {
-        // TODO: DO!!
+        // If we try to implement the longest function like this, it won't compile:
+        // fn longest(x: &str, y: &str) -> &str {
+        //     if x.len() > y.len() {
+        //         x
+        //     } else {
+        //         y
+        //     }
+        // }
+
+        // ^ Compilation error: "missing lifetime specifier"
+        //      "this function's return type contains a borrowed value, but the signature does not say whether it is borrowed from `x` or `y`"
+
+        // Rust can't tell whether the reference being returned refers to x or y.
+        // The if block on the body of this function returns a reference to x and the else block returns a reference to y.
+        // The borrow checker doesn't know how the lifetimes of x and y relate to the lifetime of the return value.
+
+        // ****************************************************
+        // To fix this, we'll add generic lifetime params
+        // that define the relationship between the references.
+        // ****************************************************
+    }
+
+    fn lifetime_annotation_syntax() {
+        // Functions can accept references with any lifetime by specifying a generic lifetime parameter.
+
+        // Examples:
+        // &i32        // a reference
+        // &'a i32     // a reference with an explicit lifetime
+        // &'a mut i32 // a mutable reference with an explicit lifetime
+    }
+
+    fn lifetime_annotations_in_function_signatures() {
+        // TODO: DO
     }
 }

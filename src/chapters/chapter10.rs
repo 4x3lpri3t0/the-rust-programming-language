@@ -30,6 +30,7 @@ pub mod c10 {
         lifetimes_to_prevent_dangling_refs();
         generic_lifetimes_in_functions();
         lifetime_annotation_syntax();
+        lifetime_annotations_in_function_signatures();
     }
 
     fn find_largest() {
@@ -444,6 +445,27 @@ pub mod c10 {
     }
 
     fn lifetime_annotations_in_function_signatures() {
-        // TODO: DO
+        // All the refs in the params and the return value must have the same lifetime.
+        fn longest<'a>(x: &'a str, y: &'a str) -> &'a str {
+            // ^ both params are string slices, so they have the same lifetime
+
+            if x.len() > y.len() {
+                x
+            } else {
+                y
+            }
+        }
+
+        println!("Longest: {}", longest("1", "22"));
+
+        // When we specify the lifetime params in this function signature,
+        // we're not changing the lifetimes of any values passed in or returned...
+        // we're specifying that the borrow checker should reject any values
+        // that don't adhere to these constraints.
+
+        // The `longest` function doesn't need to know exactly how long x and y will live,
+        // only that some scope can be substituted for 'a that will satisfy this signature.
+
+        // TODO: Continue...
     }
 }

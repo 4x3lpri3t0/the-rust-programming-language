@@ -31,6 +31,7 @@ pub mod c10 {
         generic_lifetimes_in_functions();
         lifetime_annotation_syntax();
         lifetime_annotations_in_function_signatures();
+        thinking_in_terms_of_lifetimes();
     }
 
     fn find_largest() {
@@ -466,6 +467,45 @@ pub mod c10 {
         // The `longest` function doesn't need to know exactly how long x and y will live,
         // only that some scope can be substituted for 'a that will satisfy this signature.
 
-        // TODO: Continue...
+        // Using the function with refs to String values that have diff concrete lifetimes:
+        let string1 = String::from("long string");
+        {
+            let string2 = String::from("xyz");
+            let result = longest(string1.as_str(), string2.as_str());
+            println!("The longest string is '{}'", result)
+        }
+
+        // But this won't compile:
+        // {
+        //     let string1 = String::from("long string");
+        //     let result;
+        //     {
+        //         let string2 = String::from("xyz");
+        //         result = longest(string1.as_str(), string2.as_str());
+        //         //                                          ^ `string2` does not live long enough
+        //         //                                          ^ `string2` dropped here while still borrowed
+        //         println!("The longest string is {}", result);
+        //     } // <- borrowed value needs to live until here
+        // }
+    }
+
+    fn thinking_in_terms_of_lifetimes() {
+        // The way you need to specify lifetime params depends on what your fn is doing.
+
+        // The following code compiles:
+        fn longest<'a>(x: &'a str, y: &str) -> &'a str {
+            x
+        }
+        // ^ the lifetime of y does not have any relationship with the lifetime of x,
+        // so we don't need to specify it.
+
+        // This won't compile:
+        {
+            // fn longest<'a>(x: &str, y: &str) -> &'a str {
+            //     let result = String::from("really long string");
+            //     result.as_str()
+            //     // ^ cannot return reference to local variable `result`
+            // }
+        }
     }
 }

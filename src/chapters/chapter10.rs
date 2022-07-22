@@ -32,6 +32,9 @@ pub mod c10 {
         lifetime_annotation_syntax();
         lifetime_annotations_in_function_signatures();
         thinking_in_terms_of_lifetimes();
+        lifetime_annotations_in_struct_definitions();
+        lifetime_elision();
+        static_lifetime();
     }
 
     fn find_largest() {
@@ -496,6 +499,7 @@ pub mod c10 {
         fn longest<'a>(x: &'a str, y: &str) -> &'a str {
             x
         }
+
         // ^ the lifetime of y does not have any relationship with the lifetime of x,
         // so we don't need to specify it.
 
@@ -506,6 +510,51 @@ pub mod c10 {
             //     result.as_str()
             //     // ^ cannot return reference to local variable `result`
             // }
+        } // ^ ... the return value lifetime is not related to the lifetime of the params at all.
+          // Rust won't let us create a dangling reference.
+          // The best fix would be to return an owned data type rather than a reference
+          // so the calling function is then responsible for cleaning up the value.
+
+        // Lifetime syntax is about connecting the lifetimes of various params and return values of functions.
+        // Once they're connected, Rust has enough information to allow memory-safe operations and disallow
+        // operations that would create dangling pointers or otherwise violate memory safety.
+    }
+
+    fn lifetime_annotations_in_struct_definitions() {
+        // It's possible for structs to hold refs:
+        // (1)
+        struct ImportantExcerpt<'a> {
+            part: &'a str, // (2)
         }
+
+        // ^ A struct that holds a ref, so its definition needs a lifetime annotation:
+        {
+            let novel = String::from("Call me Ishmael. Some years ago...");
+            let first_sentence = novel.split('.').next().expect("Could not find a '.'");
+            let i = ImportantExcerpt {
+                part: first_sentence,
+            };
+        }
+
+        // (1) This struct has one field, `part`, that holds a string slice, which is a reference.
+        // (2) As with generic data types, we declare the name of the generic lifetime param
+        //      inside angle brackets after the name of the struct so we can use the lifetime
+        //      parameter in the body of the struct definition.
+    }
+
+    fn lifetime_elision() {
+        // * Every reference has a lifetime.
+        // * You need to specify lifetime parameters for functions or structs that use references.
+        // * In some situations, the borrow checker infers the lifetimes so programmers don't need to
+        //      specify annotations every single time. In the future, even fewer lifetime annotations
+        //      might be required.
+        // * 'Lifetime elision rules': Name for those patterns programmed into Rust's analysis of references.
+        //      ^ If your code fits these cases, you won't need to write the lifetimes explicitly.
+        // * Lifetimes on function or method params: 'input lifetimes'
+        // * Lifetimes on return values: 'output lifetimes'.
+    }
+
+    fn static_lifetime() {
+        // TODO
     }
 }

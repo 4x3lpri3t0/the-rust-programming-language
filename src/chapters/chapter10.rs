@@ -35,6 +35,9 @@ pub mod c10 {
         lifetime_annotations_in_struct_definitions();
         lifetime_elision();
         static_lifetime();
+
+        // All together: Generic Type Paramaters + Trait Bounds + Lifetimes
+        all_together();
     }
 
     fn find_largest() {
@@ -550,11 +553,38 @@ pub mod c10 {
         //      might be required.
         // * 'Lifetime elision rules': Name for those patterns programmed into Rust's analysis of references.
         //      ^ If your code fits these cases, you won't need to write the lifetimes explicitly.
-        // * Lifetimes on function or method params: 'input lifetimes'
-        // * Lifetimes on return values: 'output lifetimes'.
+        // * Lifetimes on function or method params: "input lifetimes"
+        // * Lifetimes on return values: "output lifetimes"
     }
 
     fn static_lifetime() {
-        // TODO
+        // All string literals have the 'static lifetime:
+        let s: &'static str = "I have a static lifetime.";
+        // ^ the text of this string is stored directly in the binary of your program,
+        //      which is always available.
+
+        // Before specifying 'static as the lifetime for a reference, think about whether
+        // the reference you have actually lives the entire lifetime of your program or not.
+    }
+
+    fn all_together() {
+        // Specifying in one function: Generic type params + trait counds + lifetimes
+        {
+            fn logenst_with_an_announcement<'a, T>(x: &'a str, y: &'a str, ann: T) -> &'a str
+            where
+                T: Display,
+            {
+                println!("Announcement! {}", ann);
+                if x.len() > y.len() {
+                    x
+                } else {
+                    y
+                }
+            }
+            // * Extra parameter named ann of the generic type T
+            // * ^ can be filled in by any type that implements the Display type T (specified by `where` clause)
+            // * Because lifetimes are a type of generic, the declarations of the lifetime parameter 'a and
+            //      the generic type parameter T go in the same list inside the angle brackets after the function name.
+        }
     }
 }

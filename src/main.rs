@@ -14,6 +14,7 @@ pub use crate::chapters::chapter07::c07;
 pub use crate::chapters::chapter08::c08;
 pub use crate::chapters::chapter09::c09;
 pub use crate::chapters::chapter10::c10;
+pub use crate::chapters::chapter11::c11;
 
 fn main() {
     // c02::guessing_game();
@@ -24,5 +25,6 @@ fn main() {
     // c07::packages_crates_modules();
     // c08::common_collections();
     // c09::error_handling();
-    c10::generics_traits_lifetimes();
+    // c10::generics_traits_lifetimes();
+    c11::writing_automated_tests();
 }
